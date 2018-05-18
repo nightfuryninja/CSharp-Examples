@@ -11,7 +11,7 @@ namespace Test_Branch
     {
 
         /// <summary>
-        /// Our Instance of W
+        /// The Instance of HttpClient that we will be calling upon
         /// </summary>
         static HttpClient Client = new HttpClient();
 
@@ -19,26 +19,26 @@ namespace Test_Branch
         {
             PostGoogle().GetAwaiter().GetResult();
         }
-
-        static async Task GetGoogle()
+        
+        /// <summary>
+        /// HTTP GET Request
+        /// </summary>
+        static async Task GET()
         {
             string URL = "https://google.com";
             string CallBack = await Client.GetStringAsync(URL);
             Console.WriteLine(CallBack);
         }
 
-        static async Task PostGoogle()
+        static async Task POST()
         {
-            string URL = "http://ptsv2.com/t/1ustz-1526669968/post";
+            string URL = "http://ptsv2.com";
             string Data = @"{
                               'name': 'morpheus',
                               'job': 'leader'
                            }";
             HttpContent PostData = new StringContent(Data, Encoding.UTF8, "application/json");
             HttpResponseMessage Response = await Client.PostAsync(URL, PostData);
-            string Callback = Response.IsSuccessStatusCode.ToString();
-            Console.WriteLine(Callback);
-
         }
 
     }
