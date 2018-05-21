@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Test_Branch
 {
@@ -11,34 +12,48 @@ namespace Test_Branch
     {
 
         /// <summary>
-        /// The Instance of HttpClient that we will be calling upon
+        /// Our Instance of W
         /// </summary>
         static HttpClient Client = new HttpClient();
 
         static void Main(string[] args)
         {
-            PostGoogle().GetAwaiter().GetResult();
+            GetJSON().GetAwaiter().GetResult();
         }
-        
-        /// <summary>
-        /// HTTP GET Request
-        /// </summary>
-        static async Task GET()
+
+        static async Task GetGoogle()
         {
             string URL = "https://google.com";
-            string CallBack = await Client.GetStringAsync(URL);
+            HttpResponseMessage Result = await Client.GetAsync(URL);
+            string CallBack = await Result.Content.ReadAsStringAsync();
             Console.WriteLine(CallBack);
         }
 
-        static async Task POST()
+        static async Task PostGoogle()
         {
-            string URL = "http://ptsv2.com";
+            string URL = "http://ptsv2.com/t/1526669968/post";
             string Data = @"{
-                              'name': 'morpheus',
-                              'job': 'leader'
+                              'name': 'Harry',
+                              'job': 'CEO'
                            }";
             HttpContent PostData = new StringContent(Data, Encoding.UTF8, "application/json");
             HttpResponseMessage Response = await Client.PostAsync(URL, PostData);
+            string Callback = Response.IsSuccessStatusCode.ToString();
+            Console.WriteLine(Callback);
+
+        }
+
+        static async Task GetJSON()
+        {
+            string URL = "";
+
+            string Response = await Client.GetStringAsync(URL);
+
+            dynamic Data = JsonConvert.DeserializeObject<dynamic>(Response);
+
+            Console.WriteLine(Data.response.player_level);
+
+
         }
 
     }
