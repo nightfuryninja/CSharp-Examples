@@ -21,7 +21,7 @@ namespace Test_Branch
             GetJSON().GetAwaiter().GetResult();
         }
 
-        static async Task GetGoogle()
+        static async Task Get()
         {
             string URL = "https://google.com";
             HttpResponseMessage Result = await Client.GetAsync(URL);
@@ -29,9 +29,9 @@ namespace Test_Branch
             Console.WriteLine(CallBack);
         }
 
-        static async Task PostGoogle()
+        static async Task Post()
         {
-            string URL = "http://ptsv2.com/t/1526669968/post";
+            string URL = "http://ptsv2.com";
             string Data = @"{
                               'name': 'Harry',
                               'job': 'CEO'
