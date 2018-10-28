@@ -12,7 +12,7 @@ namespace Test_Branch
     {
 
         /// <summary>
-        /// Our Instance of W
+        /// Our Instance of HttpClient.
         /// </summary>
         static HttpClient Client = new HttpClient();
 
