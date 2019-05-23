@@ -55,6 +55,24 @@ namespace Test_Branch
 
 
         }
+        
+        /// <summary>
+        /// Converts an object into a dictionary.
+        /// </summary>
+        /// <param name="obj">Object to be converted.</param>
+        /// <example>x = ObjToDict(OAuthClientParameters)</example>
+        /// <returns>A Dictionary<string, string></returns>
+        public Dictionary<string, string> ObjToDict(object obj)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
 
+            foreach(var propertyInfo in obj.GetType().GetProperties())
+            {
+                dict.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
+            }
+
+            return dict;
+        }
+        
     }
 }
